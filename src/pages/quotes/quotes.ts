@@ -1,48 +1,66 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
-// kenapa dia gak ambil js lagi
-import{ Quote } from'../../data/quote.interface';
-import { QuotesService } from '../../service/service';
+import { Component } from '@angular/core';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { Quote } from '../../data/quotes.interface';
+import { QuotesService } from '../../services/quotes';
 
-@IonicPage()
+/**
+ * Generated class for the QuotesPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
 @Component({
   selector: 'page-quotes',
   templateUrl: 'quotes.html',
 })
-
-export class QuotesPage implements OnInit{
-  quotes:any;
-  constructor(public navCtrl: NavController, private navParams:NavParams, private quoteservice: QuotesService, private alertCtrl: AlertController){
-
+export class QuotesPage {
+  quotes: Quote[]
+  constructor(public navCtrl: NavController, public navParams: NavParams, private quotesService: QuotesService, private alertCtrl: AlertController) {
+    this.quotes = this.navParams.get('quotes');
   }
 
-  ngOnInit(){
-    this.quotes = this.navParams.data;
-    console.log(this.quotes);
-
-  }
-  addToFavorite(quote){
-    this.quoteservice.addQuoteToFavorites(quote);
+  ionViewDidLoad() {
+    
   }
 
-  onShowAlert() {
+  checkFav(quote: Quote){
+    return this.quotesService.isFavorite(quote);
+  }
+
+  onFav(quote: Quote){
     const alert = this.alertCtrl.create({
-      title: 'Add Quotes',
-      message:'Are you sure you want to add the quote to favorites?',
+      title: 'Add Quote',
+      message: 'Are you sure want to add the quote to favorites?',
       buttons:[
         {
-          text:'OK',
-          handler:()=>{
-            console.log("OK");
-            console.log(this.quoteservice);
+          text: 'Yes',
+          handler: () => {
+            this.quotesService.addQuoteToFav(quote);
+            console.log(this.quotesService)
           }
         },
         {
-          text:'Cancel',
-          role:'cancel',
-          handler:()=>{
-            console.log("Cancel")
+          text: 'No'
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  onUnfav(quote: Quote){
+    const alert = this.alertCtrl.create({
+      title: 'Remove Quote',
+      message: 'Are you sure want to remove the quote to favorites?',
+      buttons:[
+        {
+          text: 'Yes',
+          handler: () => {
+            this.quotesService.removeQuoteFromFav(quote);
           }
+        },
+        {
+          text: 'No'
         }
       ]
     });

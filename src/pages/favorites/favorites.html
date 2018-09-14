@@ -5,12 +5,29 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+
   <ion-navbar>
-    <ion-title>Favorites page</ion-title>
+    <ion-title>Favorites</ion-title>
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+
 </ion-header>
 
 
 <ion-content padding>
-  
+  <ion-list>
+    <ion-item-sliding *ngFor="let quote of favQuotes">
+      <ion-item (click)="showQuote(quote)">
+        <h3 ion-text *ngIf="quote.text.length > 0">{{quote.text}}</h3>
+        <p>{{quote.person}}</p>
+      </ion-item>
+      <ion-item-options>
+          <button ion-button color="danger" (click)="onUnfav(quote)">Delete</button>
+         </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

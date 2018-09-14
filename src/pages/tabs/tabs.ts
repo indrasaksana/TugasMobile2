@@ -1,26 +1,31 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {LibraryPage} from '../library/library';
-import {FavoritesPage} from '../favorites/favorites';
+import { NavController, NavParams } from 'ionic-angular';
 
-@IonicPage()
+import { LibraryPage } from '../library/library';
+import { FavoritesPage } from '../favorites/favorites';
+
+
+/**
+ * Generated class for the TabsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
 @Component({
   selector: 'page-tabs',
-  template: `
-  <ion-tabs>
-		<ion-tab [root]="libraryPage" tabTitle="Library" tabIcon ="book"></ion-tab>
-		<ion-tab [root]="favoritesPage"	tabTitle="favotires" tabIcon ="star"></ion-tab>	
-	</ion-tabs>
-  `
+  templateUrl: 'tabs.html',
 })
 export class TabsPage {
-	libraryPage = LibraryPage;
-	favoritesPage = FavoritesPage;
+  libraryTab: any
+  favoritesTab: any
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.libraryTab = LibraryPage;
+    this.favoritesTab = FavoritesPage;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TabsPage');
+    
   }
 
 }
