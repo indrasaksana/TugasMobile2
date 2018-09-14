@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { PageNamePage } from '../pageSecond/page-name';
+import { TabsPage } from '../tabs/tabs';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
-
 })
 export class HomePage {
 
   constructor(public navCtrl: NavController) {
-  
+
   }
-  goToOtherPage(){
-    this.navCtrl.push(PageNamePage);
+  onButtonClicked(){
+  	this.navCtrl.push(TabsPage);
   }
+
 }
